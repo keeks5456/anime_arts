@@ -13,11 +13,8 @@
     <h1>Anime art Hall</h1>
 
     <!-- create a form for artist to add and update art here -->
-    <form class="create-post">
+    <form id="create-post">
       <h3>Post Art here</h3>
-      <p>Please enter your name</p>
-      <input type="text" name="user" value="" placeholder="Artist name" class="input-text">
-        <br>
       <p>Please enter the name of your artwork</p>
         <input type="text" name="name" value="" placeholder="Name of artwork" class="input-text">
         <br>
@@ -58,5 +55,19 @@
       </div>
     </div>
     <!-- card container ends here -->
+    <!-- new form for edit here -->
+    <form id="edit-post">
+      <h4>Edit Artwork Here</h4>
+      <p>Please enter the name of your artwork</p>
+        <input type="text" name="name" value="" placeholder="Name of artwork" class="input-text">
+        <br>
+        <p>Post the image of your work</p>
+        <input type="text" name="image" value="" placeholder="Artwork URL" class="input-text">
+        <br>
+        <p>Inspiration behind this artwork</p>
+        <input type="text" name="description" value="" placeholder="Description" class="input-text">
+        <br>
+        <input type="submit" name="submit" value="Post Your Work!" class="submit">
+      </form> 
   </body>
 </html>
