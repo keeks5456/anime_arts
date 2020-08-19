@@ -17,14 +17,20 @@ const userContainer = document.querySelector('.container')
     userCard.className = "card"
     userCard.id = user.id
     userCard.innerHTML += `
-      
+     
         <h1>${user.username}</h1>
         <img src="${user.artwork}"> 
         <p>${user.description}</p>
-        <a class="waves-effect waves-light btn-small"><i class="material-icons left">cloud</i>like</a>
-      
-      `
-      // why aren't the images showing on the page? somthing wrng with GET request
+        <form action="/html/tags/html_form_tag_action.cfm" method="post">
+        <div>
+        <textarea name="comments" id="comments" style="font-family:sans-serif;font-size:1.2em;">Hey... say something!</textarea>
+        </div>
+        <input type="submit" value="Submit">
+        </form> 
+        <button class='btn-success'>likes: 0</button>
+        <button class='btn-danger' data-delete='delete-btn' >Delete</button>
+        <button class='btn-primary' data-edit='edit-btn'>Edit</button> 
+          `
     userContainer.appendChild(userCard)
     console.log(userCard)
   }
