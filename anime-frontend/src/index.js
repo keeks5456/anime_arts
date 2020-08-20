@@ -6,7 +6,9 @@ const postContainer = document.querySelector('.container')
     fetch(baseURL)
     .then(res => res.json())
     .then(json => {
-      json['data'].forEach(post => buildPost(post, json['included']))
+      json['data'].forEach(post =>{
+         buildPost(post, json['included'])
+        })
       // console.log(json)
     })//array
   }
@@ -20,8 +22,8 @@ const postContainer = document.querySelector('.container')
     const postCard = document.createElement('div')
     postCard.className = "card"
     postCard.id = post.id
-    postCard.innerHTML += `
-    
+
+    postCard.innerHTML = `
         <h1>${usersIncluded.find(u => u.id === post.relationships.user.data.id).attributes.username}</h1>
         <img src="${post.attributes.artwork}"> 
         <p>${post.attributes.description}</p>
@@ -37,15 +39,18 @@ const postContainer = document.querySelector('.container')
           `
           postContainer.appendChild(postCard) 
 
-          let card = document.getElementById(post.id)
-          let likesBtn = card.querySelector('.btn-success')
-          likesBtn.addEventListener('click', (e) => incrementLikes(post))
-          console.log(likesBtn)
+          // let card = document.getElementById(post.id)
+          // debugger
+          let likesBtn = postCard.querySelector('.btn-success')
+          // console.log(likesBtn)
+          likesBtn.addEventListener('click', (e) =>{ 
+            // console.log(e)
+            incrementLikes(post)})
   }
 
 
 const incrementLikes = (post) => {
-
+  console.log(post)
   data = {
     likes: post.attributes.likes += 1 
   }
@@ -60,11 +65,11 @@ const incrementLikes = (post) => {
   })
   .then(res => res.json())
   .then(json => {
+    // debugger
     let currentPost = document.getElementById(json.id)
-    console.log(currentPost)
     let button = currentPost.querySelector('.btn-success')
-    button.textContent = `likes ${json.id}`
-    console.log(button)
+    button.textContent = `likes ${json.likes}`
+    // console.log(button)
     // console.log(json)
   })
 }
