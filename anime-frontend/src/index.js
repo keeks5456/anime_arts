@@ -8,7 +8,7 @@ const postContainer = document.querySelector('.container')
 
     .then(json => {
       json['data'].forEach(post =>{
-         buildPost(post, json['included'])
+         buildPostCard(post, json['included'])
         })
       // console.log(json)
     })//array
@@ -18,9 +18,7 @@ const postContainer = document.querySelector('.container')
   // Build the user's cards
 
 
-  const buildPostCard = (post) =>{
-    console.log(post)
-
+  const buildPostCard = (post, usersIncluded) =>{
     const postCard = document.createElement('div')
     postCard.className = "card"
     postCard.id = post.id
@@ -43,11 +41,9 @@ const postContainer = document.querySelector('.container')
 
           // let card = document.getElementById(post.id)
           // debugger
-          let likesBtn = postCard.querySelector('.btn-success')
-          // console.log(likesBtn)
-          likesBtn.addEventListener('click', (e) =>{ 
-            // console.log(e)
-            incrementLikes(post)})
+    let likesBtn = postCard.querySelector('.btn-success')
+    likesBtn.addEventListener('click', (e) =>{ 
+    incrementLikes(post)})
   }
 
 
@@ -73,3 +69,4 @@ const incrementLikes = (post) => {
 
   })
 }
+
