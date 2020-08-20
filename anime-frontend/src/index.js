@@ -24,12 +24,7 @@ const postContainer = document.querySelector('.container')
     const postCard = document.createElement('div')
     postCard.className = "card"
     postCard.id = post.id
-<<<<<<< HEAD
-
     postCard.innerHTML = `
-=======
-    postCard.innerHTML += `
->>>>>>> d5ca0b122c95639db3d633e9fe39f5bc5b90af7b
         <h1>${usersIncluded.find(u => u.id === post.relationships.user.data.id).attributes.username}</h1>
         <img src="${post.attributes.artwork}"> 
         <p>${post.attributes.description}</p>
@@ -57,10 +52,6 @@ const postContainer = document.querySelector('.container')
 
 
 const incrementLikes = (post) => {
-<<<<<<< HEAD
-  console.log(post)
-=======
->>>>>>> d5ca0b122c95639db3d633e9fe39f5bc5b90af7b
   data = {
     likes: post.attributes.likes += 1 
   }
@@ -79,7 +70,6 @@ const incrementLikes = (post) => {
     let currentPost = document.getElementById(json.id)
     let button = currentPost.querySelector('.btn-success')
     button.textContent = `likes ${json.likes}`
-    // console.log(button)
-    // console.log(json)
+
   })
 }
