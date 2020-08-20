@@ -33,17 +33,19 @@ const postContainer = document.querySelector('.container')
         <input type="submit" value="Submit">
         </form> 
 
-        <button class='btn-success' id=${post.id}>likes: ${post.attributes.likes}</button>
+        <button class='btn-success'>likes: ${post.attributes.likes}</button>
         <button class='btn-danger' data-delete='delete-btn'>Delete</button>
         <button class='btn-primary' data-edit='edit-btn'>Edit</button> 
           `
           postContainer.appendChild(postCard) 
 
-          // let card = document.getElementById(post.id)
-          // debugger
+  // likes listener here
     let likesBtn = postCard.querySelector('.btn-success')
     likesBtn.addEventListener('click', (e) =>{ 
     incrementLikes(post)})
+
+  //edit listener here 
+  listenForEdit(post)
   }
 
 
@@ -68,5 +70,16 @@ const incrementLikes = (post) => {
     button.textContent = `likes ${json.likes}`
 
   })
+}
+
+const listenForEdit = (post) =>{
+// console.log(post)
+let currentPost = document.getElementById(post.id)
+let editBtn = currentPost.querySelector('.btn-primary')
+editBtn.addEventListener('submit', (e)=> {
+  e.preventDefault()
+  console.log(e)
+})
+console.log(editBtn)
 }
 
