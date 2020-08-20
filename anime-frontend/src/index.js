@@ -5,6 +5,7 @@ const postContainer = document.querySelector('.container')
   const fetchUsers = () => {
     fetch(baseURL)
     .then(res => res.json())
+
     .then(json => {
       json['data'].forEach(post =>{
          buildPost(post, json['included'])
@@ -16,14 +17,19 @@ const postContainer = document.querySelector('.container')
 
   // Build the user's cards
 
-  const buildPost = (post, usersIncluded) =>{
-    // debugger
-    // console.log(post, usersIncluded)
+
+  const buildPostCard = (post) =>{
+    console.log(post)
+
     const postCard = document.createElement('div')
     postCard.className = "card"
     postCard.id = post.id
+<<<<<<< HEAD
 
     postCard.innerHTML = `
+=======
+    postCard.innerHTML += `
+>>>>>>> d5ca0b122c95639db3d633e9fe39f5bc5b90af7b
         <h1>${usersIncluded.find(u => u.id === post.relationships.user.data.id).attributes.username}</h1>
         <img src="${post.attributes.artwork}"> 
         <p>${post.attributes.description}</p>
@@ -33,6 +39,7 @@ const postContainer = document.querySelector('.container')
         </div>
         <input type="submit" value="Submit">
         </form> 
+
         <button class='btn-success' id=${post.id}>likes: ${post.attributes.likes}</button>
         <button class='btn-danger' data-delete='delete-btn'>Delete</button>
         <button class='btn-primary' data-edit='edit-btn'>Edit</button> 
@@ -50,7 +57,10 @@ const postContainer = document.querySelector('.container')
 
 
 const incrementLikes = (post) => {
+<<<<<<< HEAD
   console.log(post)
+=======
+>>>>>>> d5ca0b122c95639db3d633e9fe39f5bc5b90af7b
   data = {
     likes: post.attributes.likes += 1 
   }
