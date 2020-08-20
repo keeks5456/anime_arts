@@ -53,7 +53,7 @@ const incrementLikes = (post) => {
   data = {
     likes: post.attributes.likes += 1 
   }
-// console.log(data)
+
   fetch(`http://localhost:3000/posts/${post.id}`, {
     method: 'PATCH',
     headers: {
@@ -71,15 +71,12 @@ const incrementLikes = (post) => {
 
   })
 }
+// likes button ends here
 
-const listenForEdit = (post) =>{
-// console.log(post)
-let currentPost = document.getElementById(post.id)
-let editBtn = currentPost.querySelector('.btn-primary')
-editBtn.addEventListener('submit', (e)=> {
-  e.preventDefault()
-  console.log(e)
-})
-console.log(editBtn)
+// here is where the submit button and to create a new post will start
+const listenForSubmit = () =>{
+
 }
+listenForSubmit()
+
 
