@@ -1,5 +1,7 @@
 const baseURL = `http://localhost:3000/posts`
-const postContainer = document.querySelector('.container')
+const postContainer = document.querySelector('.container') //card container
+let formContainer = document.querySelector('.form-container') //form container
+
 
 //fetch the api
   const fetchUsers = () => {
@@ -16,9 +18,8 @@ const postContainer = document.querySelector('.container')
   fetchUsers()
 
   // Build the user's cards
-
-
   const buildPostCard = (post, usersIncluded) =>{
+    // console.log(usersIncluded)
     const postCard = document.createElement('div')
     postCard.className = "card"
     postCard.id = post.id
@@ -43,12 +44,9 @@ const postContainer = document.querySelector('.container')
     let likesBtn = postCard.querySelector('.btn-success')
     likesBtn.addEventListener('click', (e) =>{ 
     incrementLikes(post)})
-
-  //edit listener here 
-  listenForEdit(post)
   }
 
-
+// increment likes functionality
 const incrementLikes = (post) => {
   data = {
     likes: post.attributes.likes += 1 
@@ -75,8 +73,77 @@ const incrementLikes = (post) => {
 
 // here is where the submit button and to create a new post will start
 const listenForSubmit = () =>{
+  const form = formContainer.querySelector('.add-new-post')
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    postNewArtwork(e)
 
+  })
+  // console.log(form)
 }
 listenForSubmit()
+
+
+const postNewArtwork = (e) => {
+// console.log(e)
+  data = {
+    user_attributes: [{username: e.target[0].value}],
+    artwork: e.target[1].value,
+    description: e.target[2].value,
+    likes: 0,
+  }
+  //   relationships: {
+  //     user: {
+  //       data: {
+  //         id: "",
+  //         type: ""
+  //       }
+  //     },
+  //     comments: {
+  //       data: [
+          
+  //       ]
+  //     }
+  //   }
+  // },
+
+    // {
+    //   id: "",
+    //   type: "",
+    //   attributes: {
+    //     username: ""
+    //   },
+    //   relationships: {
+    //     posts: {
+    //       data: [
+    //         {
+    //           id: "",
+    //           type: ""
+    //         },
+    //         {
+    //           id: "",
+    //           type: ""
+    //         }
+    //       ]
+    //     }
+    //   }
+    // }
+
+
+  fetch(`http://localhost:3000/posts`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(json => {
+    console.log(json)
+    buildPostCard(json)
+  })
+  // debugger
+  // console.log(e.target)
+}
 
 
