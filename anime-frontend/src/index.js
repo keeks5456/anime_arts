@@ -1,6 +1,5 @@
 const baseURL = `http://localhost:3000/posts`
 const postContainer = document.querySelector('.container') //card container
-console.log(postContainer)
 let formContainer = document.querySelector('.form-container') //form container
 
 
@@ -13,13 +12,12 @@ let formContainer = document.querySelector('.form-container') //form container
       json['data'].forEach(post =>{
          buildPostCard(post, json['included'])
         })
-    })//array
+    })
   }
   fetchUsers()
 
   // Build the user's cards
   const buildPostCard = (post, usersIncluded) =>{
-    // console.log(post, usersIncluded)
     const postCard = document.createElement('div')
     postCard.className = "card"
     postCard.id = post.id
@@ -29,22 +27,25 @@ let formContainer = document.querySelector('.form-container') //form container
         <p>${post.attributes.description}</p>
         <form action="/html/tags/html_form_tag_action.cfm" method="post">
         <div>
-        <textarea name="comments" id="comments" style="font-family:sans-serif;font-size:1.2em;">Hey... say something!</textarea>
+        <input type="text" name="comment" value="" placeholder="Comment..." class="input-text"/> 
         </div>
         <input type="submit" value="Submit">
         </form> 
-
         <button class='btn-success'>likes: ${post.attributes.likes}</button>
         <button class='btn-danger' data-delete='delete-btn'>Delete</button>
         <button class='btn-primary' data-edit='edit-btn'>Edit</button> 
           `
-          // debugger
           postContainer.appendChild(postCard) 
 
   // likes listener here
     let likesBtn = postCard.querySelector('.btn-success')
     likesBtn.addEventListener('click', (e) =>{ 
     incrementLikes(post)})
+
+    // delete listener here
+    let deleteBtn = postCard.querySelector('.btn-danger')
+    deleteBtn.addEventListener('click', () => deleteCard(post))
+    // console.log(deleteBtn)
   }
 
 // increment likes functionality
@@ -71,6 +72,20 @@ const incrementLikes = (post) => {
 }
 // likes button ends here
 
+// delete fetch starts here
+
+const deleteCard = (post) =>{
+  console.log(post)
+  fetch(`http://localhost:3000/posts/${post.id}`,{
+    method: 'DELETE',
+  })
+  .then(res => res.json())
+  .then(json => {
+    const deletedCard = document.getElementById(json.id)
+    deletedCard.remove()
+  } )
+} //delete function ends here
+
 // here is where the submit button and to create a new post will start
 const listenForSubmit = () =>{
   const form = formContainer.querySelector('.add-new-post')
@@ -79,7 +94,6 @@ const listenForSubmit = () =>{
     postNewArtwork(e)
 
   })
-  // console.log(form)
 }
 listenForSubmit()
 
@@ -107,10 +121,10 @@ const postNewArtwork = (e) => {
     console.log(json.data, json.included)
     buildPostCard(json.data, json.included)
   })
-  // debugger
-  // console.log(e.target)
 }
 
-const deleteBtn = () => {
-  
-}
+
+
+
+
+
