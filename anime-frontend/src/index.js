@@ -1,5 +1,6 @@
 const baseURL = `http://localhost:3000/posts`
 const postContainer = document.querySelector('.container') //card container
+console.log(postContainer)
 let formContainer = document.querySelector('.form-container') //form container
 
 
@@ -12,14 +13,13 @@ let formContainer = document.querySelector('.form-container') //form container
       json['data'].forEach(post =>{
          buildPostCard(post, json['included'])
         })
-      // console.log(json)
     })//array
   }
   fetchUsers()
 
   // Build the user's cards
   const buildPostCard = (post, usersIncluded) =>{
-    // console.log(usersIncluded)
+    // console.log(post, usersIncluded)
     const postCard = document.createElement('div')
     postCard.className = "card"
     postCard.id = post.id
@@ -38,6 +38,7 @@ let formContainer = document.querySelector('.form-container') //form container
         <button class='btn-danger' data-delete='delete-btn'>Delete</button>
         <button class='btn-primary' data-edit='edit-btn'>Edit</button> 
           `
+          // debugger
           postContainer.appendChild(postCard) 
 
   // likes listener here
@@ -51,7 +52,6 @@ const incrementLikes = (post) => {
   data = {
     likes: post.attributes.likes += 1 
   }
-
   fetch(`http://localhost:3000/posts/${post.id}`, {
     method: 'PATCH',
     headers: {
@@ -87,63 +87,30 @@ listenForSubmit()
 const postNewArtwork = (e) => {
 // console.log(e)
   data = {
-    user_attributes: [{username: e.target[0].value}],
+    username: e.target[0].value,
     artwork: e.target[1].value,
     description: e.target[2].value,
     likes: 0,
   }
-  //   relationships: {
-  //     user: {
-  //       data: {
-  //         id: "",
-  //         type: ""
-  //       }
-  //     },
-  //     comments: {
-  //       data: [
-          
-  //       ]
-  //     }
-  //   }
-  // },
-
-    // {
-    //   id: "",
-    //   type: "",
-    //   attributes: {
-    //     username: ""
-    //   },
-    //   relationships: {
-    //     posts: {
-    //       data: [
-    //         {
-    //           id: "",
-    //           type: ""
-    //         },
-    //         {
-    //           id: "",
-    //           type: ""
-    //         }
-    //       ]
-    //     }
-    //   }
-    // }
 
 
   fetch(`http://localhost:3000/posts`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      "Accept": "application/json"
     },
     body: JSON.stringify(data)
   })
   .then(res => res.json())
   .then(json => {
-    console.log(json)
-    buildPostCard(json)
+    console.log(json.data, json.included)
+    buildPostCard(json.data, json.included)
   })
   // debugger
   // console.log(e.target)
 }
 
-
+const deleteBtn = () => {
+  
+}
